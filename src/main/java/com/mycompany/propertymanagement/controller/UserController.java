@@ -1,6 +1,7 @@
 package com.mycompany.propertymanagement.controller;
 
 import com.mycompany.propertymanagement.dto.User;
+import com.mycompany.propertymanagement.exception.BusinessException;
 import com.mycompany.propertymanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,12 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<User> register(@RequestBody User user){
         User user1 = userService.register(user);
-        return new ResponseEntity<User>(user1, HttpStatus.CREATED);
+        return new ResponseEntity<>(user1, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<User> login(@RequestBody User user) {
+        User user1 = userService.login(user.getEmail(), user.getPassword());
+        return new ResponseEntity<>(user1, HttpStatus.OK);
     }
 }

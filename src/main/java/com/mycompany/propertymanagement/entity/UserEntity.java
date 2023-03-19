@@ -1,5 +1,6 @@
 package com.mycompany.propertymanagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
