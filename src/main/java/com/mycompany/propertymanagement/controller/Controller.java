@@ -37,7 +37,6 @@ public class Controller {
     public ResponseEntity<List<Property>> getAllProperty(){
         System.out.println(localDummy);
         System.out.println("This is URL for local environment"+localURL);
-        System.out.println("Some dummy text here====");
         return new ResponseEntity<List<Property>>(propertyService.getAllProperty(), HttpStatus.FOUND);
     }
 
