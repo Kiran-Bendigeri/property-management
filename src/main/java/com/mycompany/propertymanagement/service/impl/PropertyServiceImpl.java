@@ -51,9 +51,11 @@ public class PropertyServiceImpl implements PropertyService {
         if(optEntity.isPresent()){
             PropertyEntity propertyEntity = optEntity.get();
             propertyEntity.setTitle(property.getTitle());
+            propertyEntity.setEmail(property.getEmail());
             propertyEntity.setPrice(property.getPrice());
             propertyEntity.setAddress(property.getAddress());
             propertyEntity.setDescription(property.getDescription());
+            propertyEntity.setOwnerName(property.getOwnerName());
             proprtyUpdated = dtoModelToEntity.convertToDTO(propertyEntity);
             propertyRepository.save(propertyEntity);
             return proprtyUpdated;
