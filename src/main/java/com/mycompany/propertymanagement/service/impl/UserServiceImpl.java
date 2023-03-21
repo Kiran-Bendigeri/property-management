@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
         Optional<UserEntity> optionalUserEntity = ownerRepository.findByEmail(user.getEmail());
         if(optionalUserEntity.isPresent()){
             ErrorModel errorModel = new ErrorModel();
-            errorModel.setErrorCode(HttpStatus.ALREADY_REPORTED);
+            errorModel.setErrorCode(HttpStatus.ALREADY_REPORTED.toString());
             errorModel.setMessage("User already exist with given Email-ID");
             throw new BusinessException(Arrays.asList(errorModel));
         }else {
@@ -45,7 +45,7 @@ public class UserServiceImpl implements UserService {
             user = userConverter.convertToDTO(optionalUserEntity.get());
         }else{
             ErrorModel errorModel = new ErrorModel();
-            errorModel.setErrorCode(HttpStatus.NOT_FOUND);
+            errorModel.setErrorCode(HttpStatus.NOT_FOUND.toString());
             errorModel.setMessage("User doesn't exist");
             throw new BusinessException(Arrays.asList(errorModel));
         }

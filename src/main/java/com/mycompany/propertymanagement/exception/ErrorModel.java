@@ -7,6 +7,6 @@ import lombok.Setter;
 @Setter
 public class ErrorModel {
 
-    private Enum<?> errorCode;
+    private String errorCode;
     private String message;
 }

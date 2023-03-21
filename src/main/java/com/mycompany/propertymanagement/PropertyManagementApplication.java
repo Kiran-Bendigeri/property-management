@@ -9,9 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 public class PropertyManagementApplication {
 
 	public static void main(String[] args) {
-
 		SpringApplication.run(PropertyManagementApplication.class, args);
-
 	}
 
 }
