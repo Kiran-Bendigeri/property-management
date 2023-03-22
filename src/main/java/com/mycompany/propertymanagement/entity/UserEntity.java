@@ -1,6 +1,5 @@
 package com.mycompany.propertymanagement.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,8 +25,12 @@ public class UserEntity {
     private String email;
 
     @Column(name = "PHONE", nullable = false)
-    private long phno;
+    private Long phno;
 
     @Column(name = "PASSWORD", nullable = false)
     private String password;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "USER_ADDRESS_ENTITY_ID", nullable = false)
+    private UserAddressEntity userAddressEntity;
 }

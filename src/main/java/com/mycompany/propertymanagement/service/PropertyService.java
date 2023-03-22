@@ -13,6 +13,8 @@ public interface PropertyService {
 
     public List<Property> getAllProperty();
 
+    public List<Property> getAllUserProperty(Long userId);
+
     Property updateProperty(Property property, Long propertyId);
 
     Property findById(Long id);

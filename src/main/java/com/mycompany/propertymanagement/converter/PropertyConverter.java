@@ -2,12 +2,11 @@ package com.mycompany.propertymanagement.converter;
 
 import com.mycompany.propertymanagement.dto.Property;
 import com.mycompany.propertymanagement.entity.PropertyEntity;
-import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 
 @Component
-public class DTOModelToEntity {
+public class PropertyConverter {
 
     public PropertyEntity convertToEntity(Property property){
         PropertyEntity propertyEntity = new PropertyEntity();

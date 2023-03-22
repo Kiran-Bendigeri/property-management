@@ -2,10 +2,12 @@ package com.mycompany.propertymanagement.service.impl;
 
 import com.mycompany.propertymanagement.converter.UserConverter;
 import com.mycompany.propertymanagement.dto.User;
+import com.mycompany.propertymanagement.entity.UserAddressEntity;
 import com.mycompany.propertymanagement.entity.UserEntity;
 import com.mycompany.propertymanagement.exception.BusinessException;
 import com.mycompany.propertymanagement.exception.ErrorModel;
 import com.mycompany.propertymanagement.repository.OwnerRepository;
+import com.mycompany.propertymanagement.service.UserAddressService;
 import com.mycompany.propertymanagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +25,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserConverter userConverter;
 
+    @Autowired
+    private UserAddressService userAddressService;
+
     @Override
     public User register(User user) {
         Optional<UserEntity> optionalUserEntity = ownerRepository.findByEmail(user.getEmail());
@@ -32,7 +37,16 @@ public class UserServiceImpl implements UserService {
             errorModel.setMessage("User already exist with given Email-ID");
             throw new BusinessException(Arrays.asList(errorModel));
         }else {
-            UserEntity userEntity = ownerRepository.save(userConverter.convertToEntity(user));
+            UserAddressEntity userAddressEntity = new UserAddressEntity();
+            userAddressEntity.setCity(user.getCity());
+            userAddressEntity.setStreet(user.getStreet());
+            userAddressEntity.setCountryCode(user.getCountryCode());
+            userAddressEntity.setCountry(user.getCountry());
+            userAddressEntity.setHouseNo(user.getHouseNo());
+
+            UserEntity userEntity = userConverter.convertToEntity(user);
+            userEntity.setUserAddressEntity(userAddressEntity);
+            userEntity = ownerRepository.save(userEntity);
             return userConverter.convertToDTO(userEntity);
         }
     }
