@@ -13,7 +13,6 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class PropertyEntity {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "PROPERTY_ID")
@@ -30,5 +29,10 @@ public class PropertyEntity {
 
     @Column(name = "PROPERTY_ADDRESS")
     private String address;
+
+    // It will not fetch user details while fetching property details
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "OWNER_ID", nullable = false)
+    private UserEntity userEntity;
 
 }

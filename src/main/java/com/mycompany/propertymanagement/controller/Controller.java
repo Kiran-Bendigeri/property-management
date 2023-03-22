@@ -3,6 +3,8 @@ package com.mycompany.propertymanagement.controller;
 
 import com.mycompany.propertymanagement.dto.Property;
 import com.mycompany.propertymanagement.service.PropertyService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.repository.query.Param;
@@ -26,8 +28,17 @@ public class Controller {
     @Autowired
     private PropertyService propertyService;
 
-    @PostMapping("/properties")
-    public ResponseEntity<Property> saveProperty(@RequestBody Property property){
+    @ApiOperation(value = "This is the method which is used for saving property")
+    @PostMapping(path = "/properties", consumes = {"application/json"}, produces = {"application/json"})
+    public ResponseEntity<Property> saveProperty(
+            @ApiParam(
+                    name = "PropertyDTO",
+                    value = "property data",
+                    type = "property dto",
+                    example = "property information",
+                    required = true
+            )
+            @RequestBody Property property){
         Property propertyFromDB = propertyService.saveProperty(property);
         ResponseEntity<Property> responseEntity = new ResponseEntity<>(propertyFromDB, HttpStatus.CREATED);
         return responseEntity;
@@ -35,10 +46,12 @@ public class Controller {
 
     @GetMapping("/properties")
     public ResponseEntity<List<Property>> getAllProperty(){
-        System.out.println(localDummy);
-        System.out.println("This is URL for local environment"+localURL);
-        System.out.println("Some dummy text here====");
-        return new ResponseEntity<List<Property>>(propertyService.getAllProperty(), HttpStatus.FOUND);
+        return new ResponseEntity<>(propertyService.getAllProperty(), HttpStatus.FOUND);
+    }
+
+    @GetMapping("/properties/user/{userId}")
+    public ResponseEntity<List<Property>> getAllUserProperty(@PathVariable Long userId){
+        return new ResponseEntity<>(propertyService.getAllUserProperty(userId), HttpStatus.FOUND);
     }
 
     @PutMapping("/properties?{property_id}")
@@ -55,20 +68,20 @@ public class Controller {
     }
 
     @GetMapping("/properties/{id}")
-    public Property getById(@PathVariable Long id){
-        return propertyService.findById(id);
+    public ResponseEntity<Property> getById(@PathVariable Long id){
+        return new ResponseEntity<>(propertyService.findById(id), HttpStatus.NOT_FOUND);
     }
 
     @PatchMapping("/properties/update-description/{id}")
     public ResponseEntity<Property> updateDescription(@RequestBody Property property, @PathVariable Long id){
         Property property1 = propertyService.updateDescription(property, id);
-        return new ResponseEntity<Property>(property1, HttpStatus.OK);
+        return new ResponseEntity<>(property1, HttpStatus.OK);
     }
 
     @PatchMapping("/properties/update-price/{id}")
     public ResponseEntity<Property> updatePrice(@RequestBody Property property, @PathVariable Long id){
         Property property1 = propertyService.updatePrice(property, id);
-        return new ResponseEntity<Property>(property1, HttpStatus.OK);
+        return new ResponseEntity<>(property1, HttpStatus.OK);
     }
 
     @DeleteMapping("/properties/delete/{id}")

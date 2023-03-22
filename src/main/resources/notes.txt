@@ -1,0 +1,6 @@
+Swagger documentation : http://localhost:8080/v2/api-docs
+Swagger documentation UI : http://localhost:8080/swagger-ui
+To check spring boot application performance : https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html
+
+
+http://localhost:8080/actuator
